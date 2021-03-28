@@ -1,10 +1,10 @@
 import "./App.css";
 import {
   LoginButton,
-  Text,
   useSession,
   CombinedDataProvider,
 } from "@inrupt/solid-ui-react";
+import Home from "./components/Home";
 
 const authOptions = {
   clientName: "Solid Todo App",
@@ -20,15 +20,7 @@ function App() {
           datasetUrl={session.info.webId}
           thingUrl={session.info.webId}
         >
-          <div className="message logged-in">
-            <span>You are logged in as: </span>
-            <Text
-              properties={[
-                "http://www.w3.org/2006/vcard/ns#fn",
-                "http://xmlns.com/foaf/0.1/name",
-              ]}
-            />
-          </div>
+          <Home />
         </CombinedDataProvider>
       ) : (
         <LoginButton
