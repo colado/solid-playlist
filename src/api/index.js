@@ -27,7 +27,7 @@ export const getSpotifyAccessToken = async () => {
 export const searchSpotifyItem = async (token, params) => {
   let url = new URL(`${spotifyBaseUrl}/search`);
   url.searchParams.set("q", params);
-  url.searchParams.set("type", "track,artist,album");
+  url.searchParams.set("type", "track");
 
   const requestOptions = {
     method: "GET",
@@ -40,5 +40,5 @@ export const searchSpotifyItem = async (token, params) => {
   let res = await fetch(url, requestOptions);
   res = await res.json();
 
-  return res;
+  return res.tracks.items;
 };

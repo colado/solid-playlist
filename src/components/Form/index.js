@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { getSpotifyAccessToken, searchSpotifyItem } from "../../api";
 import SearchInput from "../SearchInput";
+import SearchOptions from "../SearchOptions";
 
 const Form = () => {
   const [token, setToken] = useState();
   const [value, setValue] = useState();
+  const [results, setResults] = useState([]);
 
   useEffect(() => {
     getSpotifyToken();
@@ -19,8 +21,10 @@ const Form = () => {
     setValue(e.target.value);
   };
 
-  const handleSearch = () => {
-    searchSpotifyItem(token, value);
+  const handleSearch = async () => {
+    const queryResults = await searchSpotifyItem(token, value);
+    
+    setResults(queryResults);
   };
 
   return (
@@ -37,6 +41,8 @@ const Form = () => {
         <SearchInput handleChange={handleChange} label="artist" />
         <button onClick={handleSearch}>Search</button>
       </div>
+
+      {results.length > 0 && <SearchOptions options={results} />}
     </div>
   );
 };
